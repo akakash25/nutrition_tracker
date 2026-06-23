@@ -1,0 +1,442 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Health Assessment | NutriGuide AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ba1a1a",
+                    "secondary": "#006c49",
+                    "primary": "#0058be",
+                    "on-background": "#131b2e",
+                    "tertiary-container": "#6063ee",
+                    "background": "#faf8ff",
+                    "on-primary-fixed": "#001a42",
+                    "on-primary-container": "#fefcff",
+                    "tertiary-fixed": "#e1e0ff",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "outline-variant": "#c2c6d6",
+                    "surface-variant": "#dae2fd",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#d8e2ff",
+                    "inverse-surface": "#283044",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#131b2e",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#005ac2",
+                    "tertiary": "#4648d4",
+                    "surface-bright": "#faf8ff",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#2170e4",
+                    "surface-container-high": "#e2e7ff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#004395",
+                    "surface-container": "#eaedff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "surface-container-low": "#f2f3ff",
+                    "on-secondary-fixed": "#002113",
+                    "inverse-primary": "#adc6ff",
+                    "on-secondary-container": "#00714d",
+                    "surface-dim": "#d2d9f4",
+                    "surface": "#faf8ff",
+                    "inverse-on-surface": "#eef0ff",
+                    "on-tertiary-fixed": "#07006c",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-surface-variant": "#424754",
+                    "surface-container-highest": "#dae2fd",
+                    "secondary-container": "#6cf8bb",
+                    "outline": "#727785",
+                    "on-tertiary-container": "#fffbff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "safe-margin": "20px",
+                    "gutter": "16px",
+                    "2xl": "48px",
+                    "lg": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #faf8ff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 30px rgba(59, 130, 246, 0.08);
+            position: relative;
+        }
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 50%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .step-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hidden-step {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .active-step {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            background: #eaedff;
+            border-radius: 3px;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #0058be;
+            cursor: pointer;
+            margin-top: -9px;
+            box-shadow: 0 0 10px rgba(0, 88, 190, 0.2);
+        }
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 0% 0%, #d8e2ff 0%, transparent 40%),
+                        radial-gradient(circle at 100% 100%, #6cf8bb22 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, #faf8ff 0%, #faf8ff 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col">
+<div class="mesh-bg"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-xl border-b border-white/20 shadow-[0_4px_30px_rgba(59,130,246,0.08)] flex justify-between items-center px-safe-margin py-md">
+<div class="flex items-center gap-sm"><a href="{{DATA:SCREEN:SCREEN_2}}" class="flex items-center gap-sm hover:opacity-80 transition-opacity"><span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">spa</span><h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">NutriGuide AI</h1></a></div>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden ring-2 ring-white/40">
+<img class="w-full h-full object-cover" data-alt="A clean, professional portrait of a health-conscious person with soft, high-key studio lighting that aligns with a premium digital health assistant aesthetic. The background is a soft, blurred clinical blue with light-mode gradients, maintaining the sleek glassmorphic style of the app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqHW0dUeCtF31FmGQpSX6PYOZ3B_8DSdeDeep12URrgoci57c_MaMQ52KaZ47EXBGJHf2OKizKx9WHjqPILlz4QYXDhUMsVVi3pI8xUaGaHe5Elt6uIYBVFMmkmff0WHea1hQDUjgy3wyLg3UW5-bHuvQ2EYxdEPXScmV-KHbKBVPhIoPrpohWfPAFjbpaafbwUYR8yVM3gIZdtm8A8R6fCiNZY1AbGo2154S3BcCy45dK3Q4hwFIpVnWpy0YDmIZ-84S_p1TQYl0">
+</div>
+</header>
+<main class="flex-1 flex flex-col pt-24 pb-32 px-safe-margin max-w-lg mx-auto w-full">
+<!-- Progress Indicator -->
+<div class="mb-xl">
+<div class="flex justify-between items-end mb-sm px-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest" id="step-counter">Step 1 of 4</span>
+<span class="font-label-sm text-label-sm text-outline" id="step-percentage">25%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary transition-all duration-500 ease-out" id="progress-bar" style="width: 25%"></div>
+</div>
+</div>
+<form class="flex-1 flex flex-col" id="assessment-form">
+<!-- Step 1: Personal -->
+<div class="step-transition active-step" id="step-1">
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Tell us about you</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">We'll use this to personalize your nutritional algorithms.</p>
+</div>
+<div class="glass-panel rounded-2xl p-lg space-y-lg">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-xs">Full Name</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-md py-lg focus:ring-2 focus:ring-primary/20 text-body-lg font-body-lg transition-all" placeholder="John Doe" type="text">
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-xs">Age</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl px-md py-lg focus:ring-2 focus:ring-primary/20 text-body-lg font-body-lg" placeholder="28" type="number">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant px-xs">Gender</label>
+<select class="w-full bg-surface-container-low border-none rounded-xl px-md py-lg focus:ring-2 focus:ring-primary/20 text-body-lg font-body-lg appearance-none">
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: Body -->
+<div class="step-transition hidden-step" id="step-2">
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Body Metrics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Precision is key to calculating your BMR accurately.</p>
+</div>
+<div class="glass-panel rounded-2xl p-lg space-y-xl">
+<div class="space-y-md">
+<div class="flex justify-between items-center px-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Weight (kg)</label>
+<span class="text-primary font-headline-md text-headline-md" id="weight-val">70</span>
+</div>
+<input id="weight-slider" max="200" min="30" type="range" value="70">
+</div>
+<div class="space-y-md">
+<div class="flex justify-between items-center px-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Height (cm)</label>
+<span class="text-primary font-headline-md text-headline-md" id="height-val">175</span>
+</div>
+<input id="height-slider" max="230" min="100" type="range" value="175">
+</div>
+</div>
+</div>
+<!-- Step 3: Health -->
+<div class="step-transition hidden-step" id="step-3">
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Health Indicators</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Help our AI understand your medical baseline.</p>
+</div>
+<div class="space-y-md">
+<div class="glass-panel rounded-2xl p-md flex items-center gap-md border-l-4 border-l-primary cursor-pointer hover:bg-primary/5 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">monitor_heart</span>
+</div>
+<div class="flex-1">
+<div class="font-label-md text-label-md text-on-surface-variant">Blood Pressure</div>
+<select class="w-full bg-transparent border-none p-0 focus:ring-0 text-body-lg font-semibold text-on-surface">
+<option>Normal</option>
+<option>Elevated</option>
+<option>Stage 1 Hypertension</option>
+<option>Stage 2 Hypertension</option>
+</select>
+</div>
+</div>
+<div class="glass-panel rounded-2xl p-md flex items-center gap-md border-l-4 border-l-secondary cursor-pointer hover:bg-secondary/5 transition-colors">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="flex-1">
+<div class="font-label-md text-label-md text-on-surface-variant">Diabetes Status</div>
+<select class="w-full bg-transparent border-none p-0 focus:ring-0 text-body-lg font-semibold text-on-surface">
+<option>Normal</option>
+<option>Pre-diabetic</option>
+<option>Type 1 Diabetes</option>
+<option>Type 2 Diabetes</option>
+</select>
+</div>
+</div>
+<!-- AI Insight Chip -->
+<div class="bg-primary/5 rounded-2xl p-md flex gap-sm items-start">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">auto_awesome</span>
+<p class="font-label-sm text-label-sm text-primary leading-relaxed">
+                            Our AI uses these markers to prioritize micronutrients like Potassium and Magnesium in your meal plans.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Step 4: Lifestyle -->
+<div class="step-transition hidden-step" id="step-4">
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Daily Activity</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">How active is your typical day?</p>
+</div>
+<div class="space-y-md">
+<label class="block relative group cursor-pointer">
+<input checked="" class="peer sr-only" name="activity" type="radio" value="sedentary">
+<div class="glass-panel rounded-2xl p-lg border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex items-center gap-md">
+<div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center text-outline-variant peer-checked:bg-primary peer-checked:text-white transition-colors">
+<span class="material-symbols-outlined text-[32px]">chair</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Sedentary</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Little to no exercise, desk job.</p>
+</div>
+</div>
+</label>
+<label class="block relative group cursor-pointer">
+<input class="peer sr-only" name="activity" type="radio" value="moderate">
+<div class="glass-panel rounded-2xl p-lg border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex items-center gap-md">
+<div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center text-outline-variant peer-checked:bg-primary peer-checked:text-white transition-colors">
+<span class="material-symbols-outlined text-[32px]">directions_run</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Moderately Active</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Exercise 3-5 days per week.</p>
+</div>
+</div>
+</label>
+<label class="block relative group cursor-pointer">
+<input class="peer sr-only" name="activity" type="radio" value="very_active">
+<div class="glass-panel rounded-2xl p-lg border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex items-center gap-md">
+<div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center text-outline-variant peer-checked:bg-primary peer-checked:text-white transition-colors">
+<span class="material-symbols-outlined text-[32px]">fitness_center</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Very Active</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Intense exercise 6-7 days per week.</p>
+</div>
+</div>
+</label>
+</div>
+</div>
+</form>
+</main>
+<!-- Bottom Navigation Actions -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface/70 backdrop-blur-xl border-t border-white/20 p-safe-margin pb-[max(1.5rem,env(safe-area-inset-bottom))] z-50">
+<div class="max-w-lg mx-auto flex gap-md">
+<button class="flex-1 h-14 rounded-full font-label-md text-label-md text-primary bg-primary/10 hover:bg-primary/20 active:scale-95 transition-all flex items-center justify-center opacity-0 pointer-events-none" id="back-btn">
+                Back
+            </button>
+<button class="flex-[2] h-14 rounded-full font-label-md text-label-md text-white bg-primary hover:bg-primary-container active:scale-95 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-sm" id="next-btn">
+<span class="">Next</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<a href="{{DATA:SCREEN:SCREEN_5}}" class="hidden flex-[2] h-14 rounded-full font-label-md text-label-md text-white bg-secondary hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary/20 flex items-center justify-center gap-sm" id="final-btn"><span class="">Calculate My Nutrition</span><span class="material-symbols-outlined text-[20px]">analytics</span></a>
+</div><div class="text-center mt-md font-label-sm text-outline-variant opacity-60">Developed by AKASH.V-AIDS-"A"</div>
+</div>
+<script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        
+        const nextBtn = document.getElementById('next-btn');
+        const backBtn = document.getElementById('back-btn');
+        const finalBtn = document.getElementById('final-btn');
+        const stepCounter = document.getElementById('step-counter');
+        const stepPercentage = document.getElementById('step-percentage');
+        const progressBar = document.getElementById('progress-bar');
+        
+        const weightSlider = document.getElementById('weight-slider');
+        const weightVal = document.getElementById('weight-val');
+        const heightSlider = document.getElementById('height-slider');
+        const heightVal = document.getElementById('height-val');
+
+        weightSlider.addEventListener('input', (e) => {
+            weightVal.textContent = e.target.value;
+        });
+
+        heightSlider.addEventListener('input', (e) => {
+            heightVal.textContent = e.target.value;
+        });
+
+        function updateUI() {
+            // Update Visibility
+            for(let i = 1; i <= totalSteps; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if(i === currentStep) {
+                    el.classList.remove('hidden-step');
+                    el.classList.add('active-step');
+                } else {
+                    el.classList.add('hidden-step');
+                    el.classList.remove('active-step');
+                }
+            }
+
+            // Update Buttons
+            if(currentStep === 1) {
+                backBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                backBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            if(currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                finalBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                finalBtn.classList.add('hidden');
+            }
+
+            // Update Progress
+            const pct = (currentStep / totalSteps) * 100;
+            progressBar.style.width = `${pct}%`;
+            stepCounter.textContent = `Step ${currentStep} of ${totalSteps}`;
+            stepPercentage.textContent = `${pct}%`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if(currentStep < totalSteps) {
+                currentStep++;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        backBtn.addEventListener('click', () => {
+            if(currentStep > 1) {
+                currentStep--;
+                updateUI();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        finalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Transition to loading state
+            finalBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span><span>Analyzing Data...</span>';
+            setTimeout(() => {
+                alert('Assessment Complete! Your personalized nutrition plan is being generated by NutriGuide AI.');
+                finalBtn.innerHTML = '<span>Calculate My Nutrition</span><span class="material-symbols-outlined text-[20px]">analytics</span>';
+            }, 1500);
+        });
+
+        // Initialize UI
+        updateUI();
+    </script>
+
+
+</body></html>

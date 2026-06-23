@@ -1,0 +1,323 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>NutriGuide AI - Smart Nutrition Recommendations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "secondary": "#006c49",
+                      "primary": "#0058be",
+                      "on-background": "#131b2e",
+                      "tertiary-container": "#6063ee",
+                      "background": "#faf8ff",
+                      "on-primary-fixed": "#001a42",
+                      "on-primary-container": "#fefcff",
+                      "tertiary-fixed": "#e1e0ff",
+                      "tertiary-fixed-dim": "#c0c1ff",
+                      "outline-variant": "#c2c6d6",
+                      "surface-variant": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#2f2ebe",
+                      "secondary-fixed-dim": "#4edea3",
+                      "primary-fixed": "#d8e2ff",
+                      "inverse-surface": "#283044",
+                      "secondary-fixed": "#6ffbbe",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface": "#131b2e",
+                      "on-tertiary": "#ffffff",
+                      "surface-tint": "#005ac2",
+                      "tertiary": "#4648d4",
+                      "surface-bright": "#faf8ff",
+                      "on-primary": "#ffffff",
+                      "primary-container": "#2170e4",
+                      "surface-container-high": "#e2e7ff",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#004395",
+                      "surface-container": "#eaedff",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-container-low": "#f2f3ff",
+                      "on-secondary-fixed": "#002113",
+                      "inverse-primary": "#adc6ff",
+                      "on-secondary-container": "#00714d",
+                      "surface-dim": "#d2d9f4",
+                      "surface": "#faf8ff",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-tertiary-fixed": "#07006c",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-surface-variant": "#424754",
+                      "surface-container-highest": "#dae2fd",
+                      "secondary-container": "#6cf8bb",
+                      "outline": "#727785",
+                      "on-tertiary-container": "#fffbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "md": "16px",
+                      "xl": "32px",
+                      "xs": "4px",
+                      "safe-margin": "20px",
+                      "gutter": "16px",
+                      "2xl": "48px",
+                      "lg": "24px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(59, 130, 246, 0.08);
+        }
+        .dark .glass-card {
+            background: rgba(19, 27, 46, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .mesh-gradient {
+            background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+        }
+        .entrance-anim {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-fixed-dim selection:text-on-primary-fixed min-h-screen mesh-gradient transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 dark:bg-on-background/40 backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-[0_4px_30px_rgba(59,130,246,0.08)] flex justify-between items-center px-safe-margin py-md">
+<div class="flex items-center gap-sm"><a href="{{DATA:SCREEN:SCREEN_3}}" class="flex items-center gap-sm hover:opacity-80 transition-opacity"><img alt="NutriGuide AI Logo" class="h-8 w-8 object-contain" src="__PRESERVED_IMG_0__"><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary-fixed-dim">NutriGuide AI</span></a></div>
+<div class="flex items-center gap-md">
+<button class="p-xs text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container/20 overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="A professional user profile avatar in a clean, minimalist 3D clay style with soft lighting and a blue background, matching the NutriGuide AI high-end futuristic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfrwmtG8U0pL5i8NFZxsjDYj0oWu_PFDadJy2MI6hc75opuG_QLYDeiuJC9S6iO1tmFFr56o9pa-mcCedaGqpeooQd9S7my7GieTnZk6_uOhWo8dO0sIauV810VFfyKOsgLGMqLNL5CkT8ctbPqETSqlt_USqPk1XZ9GGEHxjBjtcL47XCW6BZzv3UjZzKa_gXal7I7yxDGZn-NDUJ-2zgFBQe3k41JznbGqX6YgJ73h9JU3zKFIMfk_MQ1M-jRN0EaElg5p4iVzc">
+</div>
+</div>
+</header>
+<main class="pt-2xl pb-2xl px-safe-margin overflow-x-hidden">
+<!-- Hero Section -->
+<section class="mt-xl flex flex-col md:flex-row items-center gap-xl md:gap-2xl max-w-7xl mx-auto">
+<div class="flex-1 text-center md:text-left entrance-anim" style="animation-play-state: running;">
+<span class="inline-block px-md py-xs rounded-full bg-primary/10 text-primary font-label-sm text-label-sm mb-md tracking-widest uppercase">AI-Powered Precision</span>
+<h1 class="font-display text-display text-on-surface mb-md">Smart Nutrition Recommendations <span class="text-primary">Powered by AI</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-xl mx-auto md:mx-0">Unlock your peak performance with personalized dietary insights tailored to your unique metabolism and lifestyle goals.</p>
+<div class="flex flex-col sm:flex-row gap-md justify-center md:justify-start">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:shadow-lg hover:shadow-primary/20 active:scale-95 transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_7}}'">Get Started</button>
+<button class="glass-card text-primary px-xl py-md rounded-lg font-label-md text-label-md hover:bg-primary/5 active:scale-95 transition-all border-primary/20 border" onclick="window.location.href='{{DATA:SCREEN:SCREEN_7}}'">Learn More</button>
+</div>
+</div>
+<div class="flex-1 w-full max-w-lg md:max-w-none entrance-anim delay-1" style="animation-play-state: running;">
+<div class="relative group">
+<!-- Glow effect -->
+<div class="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-2xl blur-3xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+<div class="relative glass-card rounded-xl overflow-hidden aspect-square md:aspect-video flex items-center justify-center p-md">
+<img class="w-full h-full object-cover rounded-md shadow-2xl" data-alt="A high-end, futuristic digital illustration of a glowing holographic human silhouette surrounded by vibrant nutritional data icons like avocados, clean proteins, and molecular structures. The visual style is clinical yet inviting, using a palette of primary blue and emerald green with soft glassmorphism effects and depth-of-field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyAXPeuHEsli3Kzlh10A9glaB9JuOKArtNdyCeWy25FqPA3Ovf3vJQYDnkI-gxuh79b7Q_ymbVsD-HDTdLkbaKnNPkWHOIUrQSFy8CkGmM5Vu00uAdi4xlpObCBTZPN9LTzMcTUBugOsTeSYe7rA9ow9aADE1pNoAEbkHr9V5oCeeHER8mCi0AbGOGAD7ou0kBpxTzcGOz8IIb36DonhBtCvGWynn8btitet8Oc7nkahbxLax6Qi26sdXySWPOzOgBdH2aS7Wooz4">
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="mt-2xl max-w-7xl mx-auto">
+<div class="text-center mb-xl entrance-anim delay-2" style="animation-play-state: running;">
+<h2 class="font-headline-lg text-headline-lg mb-sm">Intelligent Health Metrics</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Precision analytics to guide your journey.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg flex overflow-x-auto snap-x snap-mandatory no-scrollbar pb-md">
+<!-- BMI Card -->
+<div class="glass-card p-xl rounded-xl entrance-anim delay-1 flex flex-col gap-md relative overflow-hidden group snap-center min-w-[85vw]" style="animation-play-state: running;">
+<div class="absolute top-0 right-0 p-lg text-primary/10">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">monitor_weight</span>
+</div>
+<div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">straighten</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-xs">Smart BMI</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Dynamic Body Mass Index tracking that accounts for body composition and muscle density.</p>
+</div>
+<div class="mt-auto pt-md flex items-center gap-xs text-primary font-label-md">
+                        Explore <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+<!-- TDEE Card -->
+<div class="glass-card p-xl rounded-xl entrance-anim delay-2 flex flex-col gap-md relative overflow-hidden border-t-2 border-t-secondary/30 snap-center min-w-[85vw]" style="animation-play-state: running;">
+<div class="bg-secondary/10 w-12 h-12 rounded-lg flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-xs">Metabolic TDEE</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">AI-calculated Total Daily Energy Expenditure based on your activity peaks and resting heart rate.</p>
+</div>
+<div class="mt-md">
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full w-[65%]" style="box-shadow: 0 0 10px rgba(0, 108, 73, 0.3)"></div>
+</div>
+<div class="flex justify-between mt-xs font-label-sm text-label-sm text-secondary">
+<span class="">Activity Level</span>
+<span class="">High Performance</span>
+</div>
+</div>
+</div>
+<!-- Recommendations Card -->
+<div class="glass-card p-xl rounded-xl entrance-anim delay-3 flex flex-col gap-md bg-gradient-to-br from-primary/5 to-secondary/5 snap-center min-w-[85vw]" style="animation-play-state: running;">
+<div class="bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-xs">Tailored Macros</h3>
+<p class="text-on-surface-variant font-body-md text-body-md">Personalized protein, carb, and fat distributions generated by our neural network engine.</p>
+</div>
+<div class="flex gap-xs mt-auto">
+<span class="px-sm py-xs bg-secondary/10 text-secondary rounded-full font-label-sm text-label-sm">High Protein</span>
+<span class="px-sm py-xs bg-primary/10 text-primary rounded-full font-label-sm text-label-sm">Low GI</span>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Insight Highlight -->
+<section class="mt-2xl max-w-4xl mx-auto entrance-anim delay-3" style="animation-play-state: running;">
+<div class="glass-card p-xl rounded-xl flex flex-col md:flex-row items-center gap-xl border-2 border-primary/20 shadow-xl overflow-hidden relative">
+<div class="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="w-full md:w-1/3 flex justify-center">
+<div class="relative w-32 h-32">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor" stroke-width="12"></circle>
+<circle cx="64" cy="64" fill="transparent" r="56" stroke="url(#healthGradient)" stroke-dasharray="351.8" stroke-dashoffset="70.3" stroke-linecap="round" stroke-width="12"></circle>
+<defs>
+<linearGradient id="healthGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color: #0058be"></stop>
+<stop offset="100%" style="stop-color: #10B981"></stop>
+</linearGradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md text-primary">85</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Score</span>
+</div>
+</div>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-xs text-primary mb-xs">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="font-label-md text-label-md uppercase tracking-widest">AI Insight</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-sm">Optimization Suggestion</h3>
+<p class="text-on-surface-variant font-body-md text-body-md mb-md">"Based on your 15% increase in weekly cardio intensity, we've adjusted your carbohydrate ceiling by +40g to prevent glycogen depletion while maintaining metabolic flexibility."</p>
+<div class="flex items-center gap-md">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary/20 flex items-center justify-center text-[10px] font-bold">P</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-secondary/20 flex items-center justify-center text-[10px] font-bold">F</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-tertiary/20 flex items-center justify-center text-[10px] font-bold">C</div>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Macro Balance Optimized</span>
+</div>
+</div>
+</div>
+</section>
+</main><footer class="pb-2xl md:pb-md pt-md text-center">
+  <p class="font-label-sm text-label-sm text-on-surface-variant">
+    Developed by AKASH.V-AIDS-"A"
+  </p>
+</footer>
+<!-- Navigation Shell (Bottom Mobile / Fixed Hidden Web logic handled by Tailwind classes in components) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/70 dark:bg-on-background/40 backdrop-blur-xl border-t border-white/20 dark:border-white/10 shadow-[0_-4px_30px_rgba(59,130,246,0.08)] flex justify-around items-center w-full px-gutter py-sm pb-safe">
+<button class="flex flex-col items-center justify-center bg-primary/10 dark:bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-full px-md py-xs active:scale-95 transition-transform" onclick="window.location.href='{{DATA:SCREEN:SCREEN_3}}'">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-md py-xs hover:bg-primary/5 transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analysis</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-md py-xs hover:bg-primary/5 transition-colors active:scale-95 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<!-- Desktop Floating CTA for consistent experience -->
+<div class="hidden md:flex fixed bottom-8 right-8 z-40">
+<button class="bg-primary text-on-primary h-14 w-14 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<script>
+        // Simple Intersection Observer for entrance animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.entrance-anim').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Horizontal scroll animation for feature cards (mobile)
+        if (window.innerWidth < 768) {
+            const featureSection = document.querySelector('.grid');
+            featureSection.classList.add('flex', 'overflow-x-auto', 'snap-x', 'snap-mandatory', 'no-scrollbar', 'pb-md');
+            document.querySelectorAll('.grid > div').forEach(card => {
+                card.classList.add('snap-center', 'min-w-[85vw]');
+            });
+        }
+    </script>
+
+
+</body></html>
